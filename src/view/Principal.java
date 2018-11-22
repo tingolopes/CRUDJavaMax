@@ -1,7 +1,7 @@
 package view;
 
 import javax.swing.JFrame;
-
+//Michell Lopes
 public class Principal {
 
     public static void main(String[] args) {
