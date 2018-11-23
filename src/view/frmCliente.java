@@ -2,7 +2,7 @@ package view;
 
 import bean.Cliente;
 import connection.ConectaDB;
-import dao.clienteDAO;
+import dao.ClienteDAO;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import tablemodel.ClienteTableModel;
@@ -27,7 +27,7 @@ public class frmCliente extends javax.swing.JInternalFrame {
 
     public void cadastrarCliente() {
         Cliente a = new Cliente();
-        clienteDAO dao = new clienteDAO();
+        ClienteDAO dao = new ClienteDAO();
 
         a.setNome(txtNome.getText());
 
@@ -39,7 +39,7 @@ public class frmCliente extends javax.swing.JInternalFrame {
 
     public final void listarCliente() {
         ClienteTableModel modelo = new ClienteTableModel();
-        clienteDAO dao = new clienteDAO();
+        ClienteDAO dao = new ClienteDAO();
         modelo.setListaClientes(dao.read());
         tblCliente.setModel(modelo);
     }
@@ -47,7 +47,7 @@ public class frmCliente extends javax.swing.JInternalFrame {
     public void editarCliente() {
         if (tblCliente.getSelectedRow() != -1) {
             Cliente a = new Cliente();
-            clienteDAO dao = new clienteDAO();
+            ClienteDAO dao = new ClienteDAO();
             a.setNome(txtNome.getText());
             a.setIdcliente((int) (tblCliente.getValueAt(tblCliente.getSelectedRow(), 0)));
             dao.update(a);
@@ -59,7 +59,7 @@ public class frmCliente extends javax.swing.JInternalFrame {
     public void deletarCliente() {
         if (tblCliente.getSelectedRow() != -1) {
             Cliente a = new Cliente();
-            clienteDAO dao = new clienteDAO();
+            ClienteDAO dao = new ClienteDAO();
 
             a.setIdcliente((int) (tblCliente.getValueAt(tblCliente.getSelectedRow(), 0)));
             dao.delete(a);
@@ -70,13 +70,13 @@ public class frmCliente extends javax.swing.JInternalFrame {
 
     public void pesquisarCliente() {
         ClienteTableModel modelo = new ClienteTableModel();
-        clienteDAO dao = new clienteDAO();
+        ClienteDAO dao = new ClienteDAO();
         modelo.setListaClientes(dao.read(txtPesquisar.getText()));
         tblCliente.setModel(modelo);
     }
 
     public void selecionaItem() {
-        clienteDAO dao = new clienteDAO();        
+        ClienteDAO dao = new ClienteDAO();        
         int seleciona = tblCliente.getSelectedRow();
         int idCliente = (int)tblCliente.getModel().getValueAt(seleciona, 0);
         Cliente admin = dao.read(idCliente);
