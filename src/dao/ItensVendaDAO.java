@@ -64,7 +64,7 @@ public class ItensVendaDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        List<ItensVenda> itens_vendas = new ArrayList<>();
+        List<ItensVenda> listaDeItens = new ArrayList<>();
 
         try {
             ps = conn.prepareStatement(sql);
@@ -72,14 +72,14 @@ public class ItensVendaDAO {
 
             while (rs.next()) {
 
-                ItensVenda itens_venda = new ItensVenda();
+                ItensVenda itens = new ItensVenda();
                 Produto produto = new Produto();
 
-                itens_venda.setIdvenda(rs.getInt("ID"));
-                itens_venda.setIdproduto(rs.getInt("ID"));
-                itens_venda.setQtdproduto(rs.getInt("qtd_produto"));
-                //itens_venda.setProduto(produto);
-                itens_vendas.add(itens_venda);
+                itens.setIdvenda(rs.getInt("ID"));
+                itens.setIdproduto(rs.getInt("ID"));
+                itens.setQtdproduto(rs.getInt("qtd_produto"));
+                produto.setNome("nome");
+                listaDeItens.add(itens);
             }
 
         } catch (SQLException ex) {
@@ -87,7 +87,7 @@ public class ItensVendaDAO {
         } finally {
             ConectaDB.closeConnection(conn, ps, rs);
         }
-        return itens_vendas;
+        return listaDeItens;
     }
 
     public ItensVenda read(Integer pesquisaPorId) {
@@ -103,7 +103,7 @@ public class ItensVendaDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        ItensVenda itens_venda = new ItensVenda();
+        ItensVenda itens = new ItensVenda();
 
         try {
             ps = conn.prepareStatement(sql);
@@ -111,9 +111,9 @@ public class ItensVendaDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                itens_venda.setIdvenda(rs.getInt("ID"));
-                itens_venda.setIdproduto(rs.getInt("ID"));
-                itens_venda.setQtdproduto(rs.getInt("qtd_produto"));
+                itens.setIdvenda(rs.getInt("ID"));
+                itens.setIdproduto(rs.getInt("ID"));
+                itens.setQtdproduto(rs.getInt("qtd_produto"));
             }
 
         } catch (SQLException ex) {
@@ -121,7 +121,7 @@ public class ItensVendaDAO {
         } finally {
             ConectaDB.closeConnection(conn, ps, rs);
         }
-        return itens_venda;
+        return itens;
     }
 
     public void delete(ItensVenda v) {
