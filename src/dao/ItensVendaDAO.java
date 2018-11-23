@@ -5,7 +5,7 @@
  */
 package dao;
 
-import bean.Itens_Venda;
+import bean.ItensVenda;
 import bean.Produto;
 import connection.ConectaDB;
 import java.sql.Connection;
@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  */
 public class ItensVendaDAO {
 
-    public void create(Itens_Venda iv) {
+    public void create(ItensVenda iv) {
 
         Connection conn = ConectaDB.conecta();
         PreparedStatement ps = null;
@@ -51,7 +51,7 @@ public class ItensVendaDAO {
 
     }
 
-    public List<Itens_Venda> read() {
+    public List<ItensVenda> read() {
         //pesquisa mais completa
         String sql = "Select iv.idvenda ID, p.idproduto, iv.qtd_produto "
                 + "From itens_venda iv "
@@ -64,7 +64,7 @@ public class ItensVendaDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        List<Itens_Venda> itens_vendas = new ArrayList<>();
+        List<ItensVenda> itens_vendas = new ArrayList<>();
 
         try {
             ps = conn.prepareStatement(sql);
@@ -72,7 +72,7 @@ public class ItensVendaDAO {
 
             while (rs.next()) {
 
-                Itens_Venda itens_venda = new Itens_Venda();
+                ItensVenda itens_venda = new ItensVenda();
                 Produto produto = new Produto();
 
                 itens_venda.setIdvenda(rs.getInt("ID"));
@@ -90,7 +90,7 @@ public class ItensVendaDAO {
         return itens_vendas;
     }
 
-    public Itens_Venda read(Integer pesquisaPorId) {
+    public ItensVenda read(Integer pesquisaPorId) {
         //pesquisa mais completa
         String sql = "Select iv.idvenda ID, p.idproduto, iv.qtd_produto "
                 + "From itens_venda iv "
@@ -103,7 +103,7 @@ public class ItensVendaDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        Itens_Venda itens_venda = new Itens_Venda();
+        ItensVenda itens_venda = new ItensVenda();
 
         try {
             ps = conn.prepareStatement(sql);
@@ -124,7 +124,7 @@ public class ItensVendaDAO {
         return itens_venda;
     }
 
-    public void delete(Itens_Venda v) {
+    public void delete(ItensVenda v) {
 
         Connection conn = ConectaDB.conecta();
 

@@ -9,7 +9,7 @@ package bean;
  *
  * @author Bravo
  */
-public class Itens_Venda {
+public class ItensVenda {
     private Integer idvenda;
     private Integer idproduto;
     private Integer qtdproduto;
