@@ -18,7 +18,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ProdutoTableModel extends AbstractTableModel {
 
-    private List<String> cabecalho;
+    final List<String> cabecalho;
     private List<Produto> listaProdutos;
 
     public void setListaProduto(List<Produto> listaProdutos) {

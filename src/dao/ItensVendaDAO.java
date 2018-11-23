@@ -6,6 +6,7 @@
 package dao;
 
 import bean.Itens_Venda;
+import bean.Produto;
 import connection.ConectaDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,8 @@ import javax.swing.JOptionPane;
  *
  * @author Bravo
  */
-public class Itens_VendaDAO {
+public class ItensVendaDAO {
+
     public void create(Itens_Venda iv) {
 
         Connection conn = ConectaDB.conecta();
@@ -51,10 +53,10 @@ public class Itens_VendaDAO {
 
     public List<Itens_Venda> read() {
         //pesquisa mais completa
-        String sql = "Select iv.idvenda ID, p.idproduto, v.idcliente "
-                + "From venda v "
-                + "inner JOIN cliente c "
-                + "On v.idcliente = c.idcliente "
+        String sql = "Select iv.idvenda ID, p.idproduto, iv.qtd_produto "
+                + "From itens_venda iv "
+                + "inner JOIN venda v "
+                + "On v.idvenda = iv.idvenda "
                 + "order by nome";
 
         Connection conn = ConectaDB.conecta();
@@ -62,7 +64,7 @@ public class Itens_VendaDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        List<Venda> vendas = new ArrayList<>();
+        List<Itens_Venda> itens_vendas = new ArrayList<>();
 
         try {
             ps = conn.prepareStatement(sql);
@@ -70,28 +72,30 @@ public class Itens_VendaDAO {
 
             while (rs.next()) {
 
-                Venda venda = new Venda();
+                Itens_Venda itens_venda = new Itens_Venda();
+                Produto produto = new Produto();
 
-                venda.setIdvenda(rs.getInt("ID"));
-                venda.setDatavenda(rs.getDate("datavenda"));
-                venda.setIdcliente(rs.getInt("idcliente"));
-                vendas.add(venda);
+                itens_venda.setIdvenda(rs.getInt("ID"));
+                itens_venda.setIdproduto(rs.getInt("ID"));
+                itens_venda.setQtdproduto(rs.getInt("qtd_produto"));
+                //itens_venda.setProduto(produto);
+                itens_vendas.add(itens_venda);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItensVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConectaDB.closeConnection(conn, ps, rs);
         }
-        return vendas;
+        return itens_vendas;
     }
 
-    public Venda read(Integer pesquisaPorId) {
+    public Itens_Venda read(Integer pesquisaPorId) {
         //pesquisa mais completa
-        String sql = "Select v.idvenda, v.datavenda, p.idcliente "
-                + "From venda v "
-                + "inner JOIN cliente c "
-                + "On v.idcliente = c.idcliente "
+        String sql = "Select iv.idvenda ID, p.idproduto, iv.qtd_produto "
+                + "From itens_venda iv "
+                + "inner JOIN venda v "
+                + "On v.idvenda = iv.idvenda "
                 + "where v.idvenda = ? "
                 + "order by datavenda";
 
@@ -99,7 +103,7 @@ public class Itens_VendaDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        Venda venda = new Venda();
+        Itens_Venda itens_venda = new Itens_Venda();
 
         try {
             ps = conn.prepareStatement(sql);
@@ -107,17 +111,17 @@ public class Itens_VendaDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                venda.setIdvenda(rs.getInt("idvenda"));
-                venda.setDatavenda(rs.getDate("datavenda"));
-                venda.setIdcliente(rs.getInt("idcliente"));
+                itens_venda.setIdvenda(rs.getInt("ID"));
+                itens_venda.setIdproduto(rs.getInt("ID"));
+                itens_venda.setQtdproduto(rs.getInt("qtd_produto"));
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItensVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConectaDB.closeConnection(conn, ps, rs);
         }
-        return venda;
+        return itens_venda;
     }
 
     public void delete(Itens_Venda v) {
@@ -139,5 +143,5 @@ public class Itens_VendaDAO {
             ConectaDB.closeConnection(conn, ps);
         }
     }
-    
+
 }

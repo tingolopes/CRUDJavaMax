@@ -7,7 +7,7 @@ package tablemodel;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import bean.Admin;
+import bean.Cliente;
 import java.util.ArrayList;
 
 /**
@@ -15,22 +15,21 @@ import java.util.ArrayList;
  * @author Michell
  * @author Kleber
  */
-public class AdminTableModel extends AbstractTableModel {
+public class ClienteTableModel extends AbstractTableModel {
 
     private final List<String> cabecalho;
-    private List<Admin> listaAdmins;
+    private List<Cliente> listaClientes;
 
-    public void setListaAdmins(List<Admin> listaAdmins) {
-        this.listaAdmins = listaAdmins;
+    public void setListaClientes(List<Cliente> listaCliente) {
+        this.listaClientes = listaCliente;
     }
 
-    public AdminTableModel() {
+    public ClienteTableModel() {
         cabecalho = new ArrayList<>();
-        listaAdmins = new ArrayList<>();
+        listaClientes = new ArrayList<>();
 
         cabecalho.add("ID");
         cabecalho.add("Nome");
-        cabecalho.add("Login");
     }
 
     @Override
@@ -40,7 +39,7 @@ public class AdminTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return listaAdmins.size();
+        return listaClientes.size();
     }
 
     @Override
@@ -53,15 +52,13 @@ public class AdminTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case 0:
                 //retornar o id
-                return listaAdmins.get(rowIndex).getIdadmin();
+                return listaClientes.get(rowIndex).getIdcliente();
             case 1:
                 //retornar o nome
-                return listaAdmins.get(rowIndex).getNome();
-            case 2:
-                //retornar o nome
-                return listaAdmins.get(rowIndex).getLogin();
+                return listaClientes.get(rowIndex).getNome();
             default:
                 return null;
         }
     }
+
 }

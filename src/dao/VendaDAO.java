@@ -79,7 +79,7 @@ public class VendaDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConectaDB.closeConnection(conn, ps, rs);
         }
@@ -113,7 +113,7 @@ public class VendaDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConectaDB.closeConnection(conn, ps, rs);
         }
