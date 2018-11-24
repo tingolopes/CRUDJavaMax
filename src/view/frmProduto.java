@@ -110,8 +110,8 @@ public class frmProduto extends javax.swing.JInternalFrame {
 
     public void selecionaProduto() {
         ProdutoDAO dao = new ProdutoDAO();
-        int seleciona = tblProduto.getSelectedRow();
-        int idProduto = (int) tblProduto.getModel().getValueAt(seleciona, 0);
+        int linhaSelecionada = tblProduto.getSelectedRow();
+        int idProduto = (int) tblProduto.getModel().getValueAt(linhaSelecionada, 0);
         Produto p = dao.read(idProduto);
         txtIdProduto.setText(String.valueOf(p.getIdproduto()));
         txtNome.setText(p.getNome());

@@ -86,7 +86,7 @@ public class ClienteDAO {
 
         try {
             ps = conn.prepareStatement("select idcliente, nome from cliente where nome like ? order by nome");
-            ps.setString(1, "%" + pesquisaPorNome + "%");
+            ps.setString(1, pesquisaPorNome + "%");
             rs = ps.executeQuery();
 
             while (rs.next()) {

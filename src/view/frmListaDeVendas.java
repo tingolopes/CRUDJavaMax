@@ -19,17 +19,18 @@ import tablemodel.VendaTableModel;
  *
  * @author tingo
  */
-public class frmVenda extends javax.swing.JInternalFrame {
+public class frmListaDeVendas extends javax.swing.JInternalFrame {
 
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public frmVenda() {
+    public frmListaDeVendas() {
         initComponents();
         this.setLocation(400, 100);
         conn = ConectaDB.conecta();
         listarVendas();
+        listarItensDaVenda(0);
     }
     
     public void listarVendas() {

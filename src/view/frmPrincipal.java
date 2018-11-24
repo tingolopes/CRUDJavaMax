@@ -26,6 +26,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         menuCategoria = new javax.swing.JMenuItem();
         menuCliente = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         Sair = new javax.swing.JMenu();
 
@@ -78,13 +80,26 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         Cadastro.add(jMenuItem1);
 
-        jMenuItem2.setText("Venda");
+        jMenu1.setText("Vendas");
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setText("Efetuar Venda");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem2.setText("Listar Vendas");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        Cadastro.add(jMenuItem2);
+        jMenu1.add(jMenuItem2);
+
+        Cadastro.add(jMenu1);
 
         jMenuBar1.add(Cadastro);
 
@@ -141,19 +156,27 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        frmVenda form = new frmVenda();
+        frmListaDeVendas form = new frmListaDeVendas();
         form.setVisible(true);
         jDesktopPane1.add(form);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        frmEfetuarVenda form = new frmEfetuarVenda();
+        form.setVisible(true);
+        jDesktopPane1.add(form);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Cadastro;
     private javax.swing.JMenu Sair;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem menuAdmin;
     private javax.swing.JMenuItem menuCategoria;
     private javax.swing.JMenuItem menuCliente;
