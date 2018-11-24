@@ -13,6 +13,15 @@ public class ItensVenda {
     private Integer idvenda;
     private Integer idproduto;
     private Integer qtdproduto;
+    private Produto produto;
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 
     public Integer getQtdproduto() {
         return qtdproduto;

@@ -53,11 +53,11 @@ public class ItensVendaDAO {
 
     public List<ItensVenda> read() {
         //pesquisa mais completa
-        String sql = "Select iv.idvenda ID, p.idproduto, iv.qtd_produto "
-                + "From itens_venda iv "
-                + "inner JOIN venda v "
-                + "On v.idvenda = iv.idvenda "
-                + "order by nome";
+        String sql = "Select iv.idvenda, p.nome, iv.qtdproduto "
+                + "From itensvenda iv "
+                + "inner JOIN produto p "
+                + "On iv.idproduto = p.idproduto "
+                + "order by p.nome";
 
         Connection conn = ConectaDB.conecta();
 
@@ -73,12 +73,10 @@ public class ItensVendaDAO {
             while (rs.next()) {
 
                 ItensVenda itens = new ItensVenda();
-                Produto produto = new Produto();
 
-                itens.setIdvenda(rs.getInt("ID"));
-                itens.setIdproduto(rs.getInt("ID"));
-                itens.setQtdproduto(rs.getInt("qtd_produto"));
-                produto.setNome("nome");
+                itens.setIdvenda(rs.getInt("idvenda"));
+                itens.getProduto().setNome(rs.getString("nome"));
+                itens.setQtdproduto(rs.getInt("qtdproduto"));
                 listaDeItens.add(itens);
             }
 

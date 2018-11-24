@@ -5,8 +5,7 @@
  */
 package tablemodel;
 
-import bean.Venda;
-import java.text.DecimalFormat;
+import bean.ItensVenda;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -17,20 +16,19 @@ import javax.swing.table.AbstractTableModel;
  */
 public class VendaTableModel extends AbstractTableModel{
     final List<String> cabecalho;
-    private List<Venda> listaVendas;
+    private List<ItensVenda> listaDeItensDaVenda;
 
-    public void setListaVenda(List<Venda> listaVendas) {
-        this.listaVendas = listaVendas;
+    public void setListaVenda(List<ItensVenda> listaVendas) {
+        this.listaDeItensDaVenda = listaVendas;
     }
 
     public VendaTableModel() {
         cabecalho = new ArrayList<>();
-        listaVendas = new ArrayList<>();
+        listaDeItensDaVenda = new ArrayList<>();
 
-        cabecalho.add("ID");
-        cabecalho.add("Nome");
-        cabecalho.add("Preço");
-        cabecalho.add("Categoria");
+        cabecalho.add("ID Venda");
+        cabecalho.add("Nome Produto");
+        cabecalho.add("Qtd");
     }
 
     @Override
@@ -40,7 +38,7 @@ public class VendaTableModel extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-        return listaVendas.size();
+        return listaDeItensDaVenda.size();
     }
 
     @Override
@@ -53,21 +51,13 @@ public class VendaTableModel extends AbstractTableModel{
         switch(columnIndex){
             case 0:
                 //retornar o id
-                return listaVendas.get(rowIndex).getIdvenda();                
+                return listaDeItensDaVenda.get(rowIndex).getIdvenda();                
             case 1:
-                //retornar o id
-                return listaVendas.get(rowIndex).getIdcliente();
+                //retornar o nome produto
+                return listaDeItensDaVenda.get(rowIndex).getProduto().getNome();
             case 2:
-                //retornar o id
-                return listaVendas.get(rowIndex).getDatavenda();
-            case 3:
-                //retornar o nome
-                DecimalFormat df = new DecimalFormat();
-                df.applyPattern("R$ #,##0.00");
-                //return df.format(listaVendass.get(rowIndex).getPreco());
-            case 4:
-                //retornar o nome
-               // return listaProdutos.get(rowIndex).getNomeCategoria();
+                //retornar a qtd
+                return listaDeItensDaVenda.get(rowIndex).getQtdproduto();
             default:
                 return null;
         }
