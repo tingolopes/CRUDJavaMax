@@ -78,6 +78,7 @@ public class ItensVendaDAO {
                 itens.getProduto().setNome(rs.getString("nome"));
                 itens.setQtdproduto(rs.getInt("qtdproduto"));
                 listaDeItens.add(itens);
+                System.out.println(itens);
             }
 
         } catch (SQLException ex) {
