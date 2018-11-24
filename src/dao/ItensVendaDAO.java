@@ -73,12 +73,17 @@ public class ItensVendaDAO {
             while (rs.next()) {
 
                 ItensVenda itens = new ItensVenda();
+                Produto produto = new Produto();
 
                 itens.setIdvenda(rs.getInt("idvenda"));
-                itens.getProduto().setNome(rs.getString("nome"));
+
+                //aqui tem que dar pra fazer numa linha só
+                produto.setNome(rs.getString("nome"));
+                itens.setProduto(produto);
+                //aqui tem que dar pra fazer numa linha só
+
                 itens.setQtdproduto(rs.getInt("qtdproduto"));
                 listaDeItens.add(itens);
-                System.out.println(itens);
             }
 
         } catch (SQLException ex) {

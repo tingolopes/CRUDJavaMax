@@ -49,6 +49,9 @@ public class frmVenda extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVenda = new javax.swing.JTable();
 
+        setClosable(true);
+        setIconifiable(true);
+        setResizable(true);
         setTitle("Venda");
 
         tblVenda.setModel(new javax.swing.table.DefaultTableModel(
