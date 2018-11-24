@@ -5,7 +5,7 @@
  */
 package tablemodel;
 
-import bean.ItensVenda;
+import bean.Venda;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -16,19 +16,19 @@ import javax.swing.table.AbstractTableModel;
  */
 public class VendaTableModel extends AbstractTableModel{
     final List<String> cabecalho;
-    private List<ItensVenda> listaDeItensDaVenda;
+    private List<Venda> listaDeVendas;
 
-    public void setListaVenda(List<ItensVenda> listaVendas) {
-        this.listaDeItensDaVenda = listaVendas;
+    public void setListaVenda(List<Venda> listaDeVendas) {
+        this.listaDeVendas = listaDeVendas;
     }
 
     public VendaTableModel() {
         cabecalho = new ArrayList<>();
-        listaDeItensDaVenda = new ArrayList<>();
+        listaDeVendas = new ArrayList<>();
 
         cabecalho.add("ID Venda");
-        cabecalho.add("Nome Produto");
-        cabecalho.add("Qtd");
+        cabecalho.add("Nome Cliente");
+        cabecalho.add("Data Venda");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class VendaTableModel extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-        return listaDeItensDaVenda.size();
+        return listaDeVendas.size();
     }
 
     @Override
@@ -51,13 +51,13 @@ public class VendaTableModel extends AbstractTableModel{
         switch(columnIndex){
             case 0:
                 //retornar o id
-                return listaDeItensDaVenda.get(rowIndex).getIdvenda();                
+                return listaDeVendas.get(rowIndex).getIdvenda();                
             case 1:
                 //retornar o nome produto
-                return listaDeItensDaVenda.get(rowIndex).getProduto().getNome();
+                return listaDeVendas.get(rowIndex).getCliente().getNome();
             case 2:
                 //retornar a qtd
-                return listaDeItensDaVenda.get(rowIndex).getQtdproduto();
+                return listaDeVendas.get(rowIndex).getDatavenda();
             default:
                 return null;
         }

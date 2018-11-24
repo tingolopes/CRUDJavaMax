@@ -15,6 +15,16 @@ public class Venda {
     private Integer idvenda;
     private Date datavenda;
     private Integer idcliente;
+    private Cliente cliente;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
 
     public Integer getIdvenda() {
         return idvenda;
