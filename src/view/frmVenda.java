@@ -5,12 +5,14 @@
  */
 package view;
 
+import bean.Venda;
 import connection.ConectaDB;
 import dao.ItensVendaDAO;
 import dao.VendaDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import tablemodel.ItensVendaTableModel;
 import tablemodel.VendaTableModel;
 
 /**
@@ -27,14 +29,30 @@ public class frmVenda extends javax.swing.JInternalFrame {
         initComponents();
         this.setLocation(400, 100);
         conn = ConectaDB.conecta();
-        listarItens();
+        listarVendas();
     }
     
-    public void listarItens() {
+    public void listarVendas() {
         VendaTableModel modelo = new VendaTableModel();
+        VendaDAO dao = new VendaDAO();
+        modelo.setListaDasVendas(dao.read());
+        tblVendas.setModel(modelo);
+    }
+    
+    public void listarItensDaVenda(Integer pesquisaPorId) {
+        ItensVendaTableModel modelo = new ItensVendaTableModel();
         ItensVendaDAO dao = new ItensVendaDAO();
-        modelo.setListaVenda(dao.read());
-        tblVenda.setModel(modelo);
+        modelo.setListaVenda(dao.read(pesquisaPorId));
+        tblItensDaVenda.setModel(modelo);
+    }
+    
+    public void selecionaVenda(){
+        VendaDAO dao = new VendaDAO();
+        int seleciona = tblVendas.getSelectedRow();
+        int idVenda = (int) tblVendas.getModel().getValueAt(seleciona, 0);
+        Venda v = dao.read(idVenda);
+        int pesquisaPorId = v.getIdvenda();
+        listarItensDaVenda(pesquisaPorId);
     }
 
     /**
@@ -47,14 +65,16 @@ public class frmVenda extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblVenda = new javax.swing.JTable();
+        tblItensDaVenda = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblVendas = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
         setTitle("Venda");
 
-        tblVenda.setModel(new javax.swing.table.DefaultTableModel(
+        tblItensDaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -65,31 +85,59 @@ public class frmVenda extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblVenda);
+        jScrollPane1.setViewportView(tblItensDaVenda);
+
+        tblVendas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblVendas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVendasMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblVendas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(53, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVendasMouseClicked
+        selecionaVenda();
+    }//GEN-LAST:event_tblVendasMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblVenda;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblItensDaVenda;
+    private javax.swing.JTable tblVendas;
     // End of variables declaration//GEN-END:variables
 }

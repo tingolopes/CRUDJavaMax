@@ -5,7 +5,7 @@
  */
 package tablemodel;
 
-import bean.Venda;
+import bean.ItensVenda;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -14,21 +14,21 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Bravo
  */
-public class VendaTableModel extends AbstractTableModel{
+public class ItensVendaTableModel extends AbstractTableModel{
     final List<String> cabecalho;
-    private List<Venda> listaDeVendas;
+    private List<ItensVenda> listaDeItensDaVenda;
 
-    public void setListaDasVendas(List<Venda> listaDeVendas) {
-        this.listaDeVendas = listaDeVendas;
+    public void setListaVenda(List<ItensVenda> listaVendas) {
+        this.listaDeItensDaVenda = listaVendas;
     }
 
-    public VendaTableModel() {
+    public ItensVendaTableModel() {
         cabecalho = new ArrayList<>();
-        listaDeVendas = new ArrayList<>();
+        listaDeItensDaVenda = new ArrayList<>();
 
         cabecalho.add("ID Venda");
-        cabecalho.add("Nome Cliente");
-        cabecalho.add("Data Venda");
+        cabecalho.add("Nome Produto");
+        cabecalho.add("Qtd");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class VendaTableModel extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-        return listaDeVendas.size();
+        return listaDeItensDaVenda.size();
     }
 
     @Override
@@ -51,13 +51,13 @@ public class VendaTableModel extends AbstractTableModel{
         switch(columnIndex){
             case 0:
                 //retornar o id
-                return listaDeVendas.get(rowIndex).getIdvenda();                
+                return listaDeItensDaVenda.get(rowIndex).getIdvenda();
             case 1:
                 //retornar o nome produto
-                return listaDeVendas.get(rowIndex).getCliente().getNome();
+                return listaDeItensDaVenda.get(rowIndex).getProduto().getNome();
             case 2:
                 //retornar a qtd
-                return listaDeVendas.get(rowIndex).getDatavenda();
+                return listaDeItensDaVenda.get(rowIndex).getQtdproduto();
             default:
                 return null;
         }

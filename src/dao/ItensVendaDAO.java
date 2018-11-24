@@ -94,20 +94,21 @@ public class ItensVendaDAO {
         return listaDeItens;
     }
 
-    public ItensVenda read(Integer pesquisaPorId) {
+    public List<ItensVenda> read(Integer pesquisaPorId) {
         //pesquisa mais completa
-        String sql = "Select iv.idvenda ID, p.idproduto, iv.qtd_produto "
-                + "From itens_venda iv "
-                + "inner JOIN venda v "
-                + "On v.idvenda = iv.idvenda "
-                + "where v.idvenda = ? "
-                + "order by datavenda";
+        String sql = "Select iv.idvenda, p.nome, iv.qtdproduto "
+                + "From itensvenda iv "
+                + "inner JOIN produto p "
+                + "On iv.idproduto = p.idproduto "
+                + "where iv.idvenda = ? "
+                + "order by p.nome";
 
         Connection conn = ConectaDB.conecta();
+
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        ItensVenda itens = new ItensVenda();
+        List<ItensVenda> listaDeItens = new ArrayList<>();
 
         try {
             ps = conn.prepareStatement(sql);
@@ -115,9 +116,19 @@ public class ItensVendaDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                itens.setIdvenda(rs.getInt("ID"));
-                itens.setIdproduto(rs.getInt("ID"));
-                itens.setQtdproduto(rs.getInt("qtd_produto"));
+
+                ItensVenda itens = new ItensVenda();
+                Produto produto = new Produto();
+
+                itens.setIdvenda(rs.getInt("idvenda"));
+
+                //aqui tem que dar pra fazer numa linha só
+                produto.setNome(rs.getString("nome"));
+                itens.setProduto(produto);
+                //aqui tem que dar pra fazer numa linha só
+
+                itens.setQtdproduto(rs.getInt("qtdproduto"));
+                listaDeItens.add(itens);
             }
 
         } catch (SQLException ex) {
@@ -125,7 +136,7 @@ public class ItensVendaDAO {
         } finally {
             ConectaDB.closeConnection(conn, ps, rs);
         }
-        return itens;
+        return listaDeItens;
     }
 
     public void delete(ItensVenda v) {

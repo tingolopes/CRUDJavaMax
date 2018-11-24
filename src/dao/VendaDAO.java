@@ -5,6 +5,7 @@
  */
 package dao;
 
+import bean.Cliente;
 import bean.Venda;
 import connection.ConectaDB;
 import java.sql.Connection;
@@ -51,7 +52,7 @@ public class VendaDAO {
 
     public List<Venda> read() {
         //pesquisa mais completa
-        String sql = "Select v.cidvenda ID, v.datavenda, v.idcliente "
+        String sql = "Select v.idvenda, v.datavenda, v.idcliente, c.nome "
                 + "From venda v "
                 + "inner JOIN cliente c "
                 + "On v.idcliente = c.idcliente "
@@ -71,10 +72,14 @@ public class VendaDAO {
             while (rs.next()) {
 
                 Venda venda = new Venda();
+                Cliente cliente = new Cliente();
 
-                venda.setIdvenda(rs.getInt("ID"));
+                venda.setIdvenda(rs.getInt("idvenda"));
                 venda.setDatavenda(rs.getDate("datavenda"));
-                venda.setIdcliente(rs.getInt("idcliente"));
+                
+                cliente.setNome(rs.getString("nome"));
+                venda.setCliente(cliente);
+                
                 vendas.add(venda);
             }
 
@@ -88,7 +93,7 @@ public class VendaDAO {
 
     public Venda read(Integer pesquisaPorId) {
         //pesquisa mais completa
-        String sql = "Select v.idvenda, v.datavenda, p.idcliente "
+        String sql = "Select v.idvenda, v.datavenda, c.idcliente "
                 + "From venda v "
                 + "inner JOIN cliente c "
                 + "On v.idcliente = c.idcliente "
