@@ -6,7 +6,6 @@
 package view;
 
 import bean.Cliente;
-import connection.ConectaDB;
 import dao.ClienteDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,24 +37,33 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         } else {
             jList1.setVisible(true);
             for (Cliente percorrer : listaCliente) {
-                listModel.addElement(percorrer.toString());
+                listModel.addElement(percorrer.getIdcliente() + " - " + percorrer.toString());
             }
             jList1.setModel(listModel);
         }
     }
     
     public void selecionaCliente(){
+        ClienteDAO dao = new ClienteDAO();
         Cliente cliente = new Cliente();
-        
-        int index = jList1.getSelectedIndex();
+
+        String a = jList1.getSelectedValue();
+        String id[] = a.split(" - ");
+        int idCliente = Integer.parseInt(id[0]);
+        cliente.setIdcliente(idCliente);
+
+        txtIdCliente.setText(String.valueOf(cliente.getIdcliente()));
+        cliente.setNome(dao.read(idCliente).getNome());
         
         jList1.setVisible(false);
         txtPesquisaCliente.setEnabled(false);
+        txtPesquisaCliente.setText(cliente.getNome());
     }
     
     public void habilitaPesquisa(){
         txtPesquisaCliente.setEnabled(true);
         txtPesquisaCliente.setText("");
+        txtIdCliente.setText("");
         txtPesquisaCliente.requestFocus();
     }
 
