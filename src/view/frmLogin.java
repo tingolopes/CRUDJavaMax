@@ -91,6 +91,11 @@ public class frmLogin extends javax.swing.JFrame implements Autenticacao{
         jLabel1.setText("Usuario");
         jPanel1.add(jLabel1);
 
+        cmbUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbUsuarioActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmbUsuario);
 
         jLabel2.setText("Senha");
@@ -156,6 +161,10 @@ public class frmLogin extends javax.swing.JFrame implements Autenticacao{
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
         logar();
     }//GEN-LAST:event_txtSenhaActionPerformed
+
+    private void cmbUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbUsuarioActionPerformed
 
     public static void main(String args[]) {
 

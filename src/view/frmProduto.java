@@ -203,6 +203,12 @@ public class frmProduto extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Preço");
 
+        txtPreco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecoActionPerformed(evt);
+            }
+        });
+
         Cadastrar.setText("Cadastrar");
         Cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -445,6 +451,10 @@ public class frmProduto extends javax.swing.JInternalFrame {
     private void tblProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblProdutoKeyReleased
         selecionaProduto();
     }//GEN-LAST:event_tblProdutoKeyReleased
+
+    private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

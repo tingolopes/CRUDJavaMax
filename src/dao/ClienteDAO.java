@@ -28,13 +28,14 @@ public class ClienteDAO {
         PreparedStatement ps = null;
 
         //String sql = "INSERT INTO admin (nome, login, senha) VALUES(?,?,?)";
-        String sql = "INSERT INTO cliente (nome) VALUES(?)";
+        String sql = "INSERT INTO cliente (nome, endereco) VALUES(?, ?)";
 
 //      INSERT INTO admin (nome, login, senha) SELECT 'admin2','admin2','admin2' 
 //      WHERE NOT EXISTS (SELECT 1 FROM admin WHERE login = 'admin2') LIMIT 1
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, a.getNome());
+            ps.setString(2, a.getEndereco());
             ps.executeUpdate();
 
             if (ps.getUpdateCount() == 0) {
@@ -58,13 +59,14 @@ public class ClienteDAO {
         List<Cliente> listaCliente = new ArrayList<>();
 
         try {
-            ps = conn.prepareStatement("select idcliente, nome from cliente order by nome");
+            ps = conn.prepareStatement("select idcliente, nome, endereco from cliente order by nome");
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 Cliente cliente = new Cliente();
                 cliente.setIdcliente(rs.getInt("idcliente"));
                 cliente.setNome(rs.getString("nome"));
+                cliente.setEndereco(rs.getString("endereco"));
                 listaCliente.add(cliente);
             }
 
@@ -85,7 +87,7 @@ public class ClienteDAO {
         List<Cliente> listaCliente = new ArrayList<>();
 
         try {
-            ps = conn.prepareStatement("select idcliente, nome from cliente where nome like ? order by nome");
+            ps = conn.prepareStatement("select idcliente, nome, endereco from cliente where nome like ? order by nome");
             ps.setString(1, pesquisaPorNome + "%");
             rs = ps.executeQuery();
 
@@ -93,6 +95,7 @@ public class ClienteDAO {
                 Cliente cliente = new Cliente();
                 cliente.setIdcliente(rs.getInt("idcliente"));
                 cliente.setNome(rs.getString("nome"));
+                cliente.setEndereco(rs.getString("endereco"));
 
                 listaCliente.add(cliente);
             }
@@ -112,12 +115,13 @@ public class ClienteDAO {
         ResultSet rs = null;
 
         try {
-            ps = conn.prepareStatement("select idcliente, nome from cliente where idcliente = ? order by nome");
+            ps = conn.prepareStatement("select idcliente, nome, endereco from cliente where idcliente = ? order by nome");
             ps.setInt(1, pesquisaPorId);
             rs = ps.executeQuery();
             while (rs.next()) {
                 cliente.setIdcliente(rs.getInt("idcliente"));
                 cliente.setNome(rs.getString("nome"));
+                cliente.setEndereco(rs.getString("endereco"));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
@@ -132,9 +136,10 @@ public class ClienteDAO {
         Connection conn = ConectaDB.conecta();
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("update cliente set nome = ? where idcliente = ?");
+            ps = conn.prepareStatement("update cliente set nome = ?, endereco = ? where idcliente = ?");
             ps.setString(1, a.getNome());
-            ps.setInt(2, a.getIdcliente());
+            ps.setString(2, a.getEndereco());
+            ps.setInt(3, a.getIdcliente());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {

@@ -12,7 +12,16 @@ package bean;
 public class Cliente {
     private Integer idcliente;
     private String nome;
+    private String endereco;
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+    
     public Integer getIdcliente() {
         return idcliente;
     }

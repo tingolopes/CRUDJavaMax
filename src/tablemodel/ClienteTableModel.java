@@ -30,6 +30,7 @@ public class ClienteTableModel extends AbstractTableModel {
 
         cabecalho.add("ID");
         cabecalho.add("Nome");
+        cabecalho.add("Endereço");
     }
 
     @Override
@@ -56,6 +57,9 @@ public class ClienteTableModel extends AbstractTableModel {
             case 1:
                 //retornar o nome
                 return listaClientes.get(rowIndex).getNome();
+            case 2:
+                //retornar o nome
+                return listaClientes.get(rowIndex).getEndereco();
             default:
                 return null;
         }
