@@ -43,6 +43,10 @@ public class frmCliente extends javax.swing.JInternalFrame {
         ClienteDAO dao = new ClienteDAO();
         modelo.setListaClientes(dao.read());
         tblCliente.setModel(modelo);
+        tblCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tblCliente.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblCliente.getColumnModel().getColumn(2).setPreferredWidth(400);
+        
     }
 
     public void editarCliente() {
@@ -75,6 +79,9 @@ public class frmCliente extends javax.swing.JInternalFrame {
         ClienteDAO dao = new ClienteDAO();
         modelo.setListaClientes(dao.read(txtPesquisar.getText()));
         tblCliente.setModel(modelo);
+        tblCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tblCliente.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblCliente.getColumnModel().getColumn(2).setPreferredWidth(400);
     }
 
     public void selecionaItem() {
