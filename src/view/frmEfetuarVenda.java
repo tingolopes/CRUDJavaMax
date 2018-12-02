@@ -463,6 +463,8 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "O produto não pode ficar vazio", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else if (txtQtdProd.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Preencha a quantidade", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } else if (!txtQtdProd.getText().matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(this, "A quantidade só aceita números inteiros", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else {
             inserirProduto();
         }
