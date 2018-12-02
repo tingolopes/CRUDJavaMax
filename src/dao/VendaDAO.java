@@ -66,7 +66,7 @@ public class VendaDAO {
                 + "From venda v "
                 + "inner JOIN cliente c "
                 + "On v.idcliente = c.idcliente "
-                + "order by nome";
+                + "order by v.idvenda";
 
         Connection conn = ConectaDB.conecta();
 
