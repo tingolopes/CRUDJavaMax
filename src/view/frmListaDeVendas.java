@@ -104,6 +104,11 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
                 tblVendasMouseClicked(evt);
             }
         });
+        tblVendas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblVendasKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblVendas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -133,6 +138,10 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
     private void tblVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVendasMouseClicked
         selecionaVenda();
     }//GEN-LAST:event_tblVendasMouseClicked
+
+    private void tblVendasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblVendasKeyReleased
+        selecionaVenda();
+    }//GEN-LAST:event_tblVendasKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -11,9 +11,17 @@ package bean;
  */
 public class ItensVenda {
     private Integer idvenda;
-    private Integer idproduto;
-    private Integer qtdproduto;
     private Produto produto;
+    private Integer qtdproduto;
+    private Double soma;
+
+    public Double getSoma() {
+        return soma;
+    }
+
+    public void setSoma(Double soma) {
+        this.soma = soma;
+    }
 
     public Produto getProduto() {
         return produto;
@@ -39,15 +47,4 @@ public class ItensVenda {
     public void setIdvenda(Integer idvenda) {
         this.idvenda = idvenda;
     }
-
-    public Integer getIdproduto() {
-        return idproduto;
-    }
-
-    public void setIdproduto(Integer idproduto) {
-        this.idproduto = idproduto;
-    }
-    
-    
-    
 }
