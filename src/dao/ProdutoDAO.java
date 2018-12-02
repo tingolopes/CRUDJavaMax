@@ -222,7 +222,7 @@ public class ProdutoDAO {
 
             JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
+            JOptionPane.showMessageDialog(null, "Não é permitido excluir um produto que possui vendas realizadas");
         } finally {
             ConectaDB.closeConnection(conn, ps);
         }
