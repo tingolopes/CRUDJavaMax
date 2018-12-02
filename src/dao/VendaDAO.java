@@ -23,10 +23,12 @@ import javax.swing.JOptionPane;
  * @author Bravo
  */
 public class VendaDAO {
-    public void create(Venda v) {
+
+    public int create(Venda v) {
 
         Connection conn = ConectaDB.conecta();
         PreparedStatement ps = null;
+        int ultimoInserido = 0;
 
         String sql = "INSERT INTO venda (datavenda, idcliente) VALUES(?, ?)";
 
@@ -38,7 +40,14 @@ public class VendaDAO {
             ps.executeUpdate();
 
             if (ps.getUpdateCount() == 1) {
-                JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+
+                ps = conn.prepareStatement("SELECT idvenda FROM venda ORDER BY idvenda DESC LIMIT 1");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    ultimoInserido = rs.getInt("idvenda");
+                }
+
             } else {
                 JOptionPane.showMessageDialog(null, "Erro!!! Venda não realizada", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
@@ -47,6 +56,7 @@ public class VendaDAO {
         } finally {
             ConectaDB.closeConnection(conn, ps);
         }
+        return ultimoInserido;
 
     }
 
@@ -76,10 +86,10 @@ public class VendaDAO {
 
                 venda.setIdvenda(rs.getInt("idvenda"));
                 venda.setDatavenda(rs.getDate("datavenda"));
-                
+
                 cliente.setNome(rs.getString("nome"));
                 venda.setCliente(cliente);
-                
+
                 vendas.add(venda);
             }
 
@@ -144,5 +154,5 @@ public class VendaDAO {
             ConectaDB.closeConnection(conn, ps);
         }
     }
-    
+
 }

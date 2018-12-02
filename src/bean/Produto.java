@@ -75,4 +75,9 @@ public class Produto {
     public void setNomeCategoria(String nomeCategoria) {
         this.nomeCategoria = nomeCategoria;
     }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }
