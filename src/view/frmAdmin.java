@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import tablemodel.AdminTableModel;
 
 /**
@@ -58,6 +60,19 @@ public class frmAdmin extends javax.swing.JInternalFrame {
         AdminDAO dao = new AdminDAO();
         modelo.setListaAdmins(dao.read());
         tblAdmin.setModel(modelo);
+        ajustaTabela();
+    }
+    
+        public void ajustaTabela() {
+        //seta tamanho das colunas
+        tblAdmin.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblAdmin.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblAdmin.getColumnModel().getColumn(2).setPreferredWidth(400);
+
+        //configura centralizaçao das colunas
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tblAdmin.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 
     public void editarAdmin() {
@@ -91,6 +106,7 @@ public class frmAdmin extends javax.swing.JInternalFrame {
         AdminDAO dao = new AdminDAO();
         modelo.setListaAdmins(dao.read(txtPesquisar.getText()));
         tblAdmin.setModel(modelo);
+        ajustaTabela();
     }
 
     public void selecionaItem() {

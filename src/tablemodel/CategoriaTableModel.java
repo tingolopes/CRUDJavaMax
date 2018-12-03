@@ -31,7 +31,7 @@ public class CategoriaTableModel extends AbstractTableModel {
 
         cabecalho.add("ID");
         cabecalho.add("Nome");
-        cabecalho.add("Qtde de Produtos");
+        cabecalho.add("Qtde Produtos");
         cabecalho.add("Total da Categoria");
     }
 

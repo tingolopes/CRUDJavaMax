@@ -5,9 +5,10 @@ import connection.ConectaDB;
 import dao.ClienteDAO;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import tablemodel.ClienteTableModel;
 
 /**
@@ -26,7 +27,7 @@ public class frmCliente extends javax.swing.JInternalFrame {
         this.setLocation(400, 100);
         conn = ConectaDB.conecta();
         listarCliente();
-     
+
         setLayout(new BorderLayout());
         add(jPanel1, BorderLayout.NORTH);
         add(jPanel2);
@@ -52,10 +53,19 @@ public class frmCliente extends javax.swing.JInternalFrame {
         ClienteDAO dao = new ClienteDAO();
         modelo.setListaClientes(dao.read());
         tblCliente.setModel(modelo);
-        tblCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
+        ajustaTabela();
+    }
+
+    public void ajustaTabela() {
+        //seta tamanho das colunas
+        tblCliente.getColumnModel().getColumn(0).setPreferredWidth(50);
         tblCliente.getColumnModel().getColumn(1).setPreferredWidth(250);
         tblCliente.getColumnModel().getColumn(2).setPreferredWidth(400);
-        
+
+        //configura centralizaçao das colunas
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tblCliente.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 
     public void editarCliente() {
@@ -88,20 +98,17 @@ public class frmCliente extends javax.swing.JInternalFrame {
         ClienteDAO dao = new ClienteDAO();
         modelo.setListaClientes(dao.read(txtPesquisar.getText()));
         tblCliente.setModel(modelo);
-        tblCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tblCliente.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tblCliente.getColumnModel().getColumn(2).setPreferredWidth(400);
+        ajustaTabela();
     }
 
     public void selecionaItem() {
-        ClienteDAO dao = new ClienteDAO();        
+        ClienteDAO dao = new ClienteDAO();
         int seleciona = tblCliente.getSelectedRow();
-        int idCliente = (int)tblCliente.getModel().getValueAt(seleciona, 0);
+        int idCliente = (int) tblCliente.getModel().getValueAt(seleciona, 0);
         Cliente admin = dao.read(idCliente);
         txtIdCliente.setText(String.valueOf(admin.getIdcliente()));
         txtNome.setText(admin.getNome());
         txtEndereco.setText(admin.getEndereco());
-        
     }
 
     public void limparCampos() {
@@ -111,6 +118,7 @@ public class frmCliente extends javax.swing.JInternalFrame {
         txtPesquisar.setText(null);
         listarCliente();
     }
+
     public void limparCampos(Integer all) {
         txtIdCliente.setText(null);
         txtNome.setText(null);

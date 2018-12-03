@@ -11,6 +11,8 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import tablemodel.ProdutoTableModel;
 
 /**
@@ -37,7 +39,6 @@ public class frmProduto extends javax.swing.JInternalFrame {
         add(jPanel1, BorderLayout.NORTH);
         add(jPanel2);
         jPanel2.setLayout(new FlowLayout());
-        
     }
 
     public final void dataHoje() {
@@ -72,6 +73,20 @@ public class frmProduto extends javax.swing.JInternalFrame {
         ProdutoDAO dao = new ProdutoDAO();
         modelo.setListaProduto(dao.read());
         tblProduto.setModel(modelo);
+        ajustaTabela();
+    }
+    
+    public void ajustaTabela() {
+        //seta tamanho das colunas
+        tblProduto.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblProduto.getColumnModel().getColumn(2).setPreferredWidth(120);
+        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(250);
+
+        //configura centralizaçao das colunas
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tblProduto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 
     public void editarProduto() {
@@ -115,6 +130,7 @@ public class frmProduto extends javax.swing.JInternalFrame {
         ProdutoDAO dao = new ProdutoDAO();
         modelo.setListaProduto(dao.read(txtPesquisar.getText()));
         tblProduto.setModel(modelo);
+        ajustaTabela();
     }
 
     public void selecionaProduto() {
