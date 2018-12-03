@@ -27,12 +27,12 @@ public class frmCategoria extends javax.swing.JInternalFrame {
         this.setLocation(400, 100);
         conn = ConectaDB.conecta();
         listarCategoria();
-        
+
         setLayout(new BorderLayout());
         add(jPanel1, BorderLayout.NORTH);
         add(jPanel2);
         jPanel2.setLayout(new FlowLayout());
-        
+
     }
 
     public void listarCategoria() {
@@ -42,8 +42,8 @@ public class frmCategoria extends javax.swing.JInternalFrame {
         tblCategoria.setModel(modelo);
         ajustaTabela();
     }
-    
-        public void ajustaTabela() {
+
+    public void ajustaTabela() {
         //seta tamanho das colunas
         tblCategoria.getColumnModel().getColumn(0).setPreferredWidth(50);
         tblCategoria.getColumnModel().getColumn(1).setPreferredWidth(250);

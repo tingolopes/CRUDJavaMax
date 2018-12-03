@@ -51,6 +51,30 @@ public class ItensVendaDAO {
 
     }
 
+    public double readSomaCupom(Integer pesquisaPorId) {
+        Double soma = 0.0;
+        String sql = "select sum(iv.qtdproduto * p.preco) soma "
+                + "from itensvenda iv "
+                + "INNER JOIN venda v on iv.idvenda = v.idvenda "
+                + "INNER JOIN produto p ON iv.idproduto = p.idproduto "
+                + "WHERE v.idvenda = ?";
+
+        Connection conn = ConectaDB.conecta();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, pesquisaPorId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                soma = rs.getDouble("soma");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ItensVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return soma;
+    }
+
     public List<ItensVenda> read() {
         //pesquisa mais completa
         String sql = "Select iv.idvenda, p.nome, iv.qtdproduto "
@@ -138,7 +162,7 @@ public class ItensVendaDAO {
         }
         return listaDeItens;
     }
-    
+
     public List<ItensVenda> read(String pesquisaPorId) {
         //pesquisa mais completa
         String sql = "select p.nome, iv.qtdproduto, p.preco, (iv.qtdproduto * p.preco) soma "
@@ -168,13 +192,13 @@ public class ItensVendaDAO {
                 produto.setNome(rs.getString("p.nome"));
                 itens.setProduto(produto);
                 //aqui tem que dar pra fazer numa linha só
-                
+
                 itens.setQtdproduto(rs.getInt("iv.qtdproduto"));
-                
+
                 produto.setPreco(rs.getDouble("p.preco"));
                 itens.setProduto(produto);
                 //aqui tem que dar pra fazer numa linha só
-                
+
                 itens.setSoma(rs.getDouble("soma"));
                 listaDeItens.add(itens);
             }

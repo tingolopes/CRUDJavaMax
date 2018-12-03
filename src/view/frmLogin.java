@@ -58,6 +58,7 @@ public class frmLogin extends javax.swing.JFrame implements Autenticacao{
                 dispose(); //fecha o form de login (quem chamou)
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
+                txtSenha.setText("");
             }
         } catch (SQLException error) {
             JOptionPane.showMessageDialog(null, "Erro");

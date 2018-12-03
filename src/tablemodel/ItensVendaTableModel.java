@@ -26,7 +26,7 @@ public class ItensVendaTableModel extends AbstractTableModel{
         cabecalho = new ArrayList<>();
         listaDeItensDaVenda = new ArrayList<>();
 
-        cabecalho.add("ID Venda");
+        cabecalho.add("ID");
         cabecalho.add("Nome Produto");
         cabecalho.add("Qtd");
     }

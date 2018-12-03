@@ -12,7 +12,10 @@ import dao.VendaDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import tablemodel.ItensVendaTableModel;
+import java.text.DecimalFormat;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import tablemodel.CupomFiscalTableModel;
 import tablemodel.VendaTableModel;
 
 /**
@@ -27,27 +30,62 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
 
     public frmListaDeVendas() {
         initComponents();
-        this.setLocation(400, 100);
+        this.setLocation(300, 100);
         conn = ConectaDB.conecta();
         listarVendas();
         listarItensDaVenda(0);
     }
-    
+
     public void listarVendas() {
         VendaTableModel modelo = new VendaTableModel();
         VendaDAO dao = new VendaDAO();
         modelo.setListaDasVendas(dao.read());
         tblVendas.setModel(modelo);
+        ajustaTabelaVendas();
     }
-    
+
+    public void ajustaTabelaVendas() {
+        //seta tamanho das colunas
+        tblVendas.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblVendas.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tblVendas.getColumnModel().getColumn(2).setPreferredWidth(120);
+
+        //configura centralizaçao das colunas
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tblVendas.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+    }
+
     public void listarItensDaVenda(Integer pesquisaPorId) {
-        ItensVendaTableModel modelo = new ItensVendaTableModel();
+        CupomFiscalTableModel modelo = new CupomFiscalTableModel();
         ItensVendaDAO dao = new ItensVendaDAO();
-        modelo.setListaVenda(dao.read(pesquisaPorId));
-        tblItensDaVenda.setModel(modelo);
+        modelo.setListaVenda(dao.read(String.valueOf(pesquisaPorId)));
+        tblCupomFiscal.setModel(modelo);
+        tblCupomFiscal.setVisible(true);
+        ajustaTabelaCupomFiscal();
+        
+        //seta total do cupom
+        DecimalFormat df = new DecimalFormat();
+        df.applyPattern("R$ #,##0.00");
+        Double soma = 0.0;
+        soma = dao.readSomaCupom(pesquisaPorId);
+        jLabelTotalCupom.setText(String.valueOf(df.format(soma)));
     }
     
-    public void selecionaVenda(){
+        public void ajustaTabelaCupomFiscal() {
+        //seta tamanho das colunas
+        tblCupomFiscal.getColumnModel().getColumn(0).setPreferredWidth(200);
+        tblCupomFiscal.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tblCupomFiscal.getColumnModel().getColumn(2).setPreferredWidth(120);
+        tblCupomFiscal.getColumnModel().getColumn(3).setPreferredWidth(120);
+
+        //configura centralizaçao das colunas
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tblCupomFiscal.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+    }
+
+    public void selecionaVenda() {
         VendaDAO dao = new VendaDAO();
         int seleciona = tblVendas.getSelectedRow();
         int idVenda = (int) tblVendas.getModel().getValueAt(seleciona, 0);
@@ -65,28 +103,22 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblItensDaVenda = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblVendas = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCupomFiscal = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelTotalCupom = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
         setTitle("Venda");
+        setMinimumSize(new java.awt.Dimension(791, 422));
 
-        tblItensDaVenda.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tblItensDaVenda);
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de cupons", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
         tblVendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -110,26 +142,93 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane2.setViewportView(tblVendas);
+        tblVendas.getAccessibleContext().setAccessibleName("");
+        tblVendas.getAccessibleContext().setAccessibleDescription("");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalhamento do cupom", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+
+        tblCupomFiscal.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblCupomFiscal);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("TOTAL DO CUPOM");
+
+        jLabelTotalCupom.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabelTotalCupom.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 76, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelTotalCupom, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTotalCupom, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -145,9 +244,13 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelTotalCupom;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblItensDaVenda;
+    private javax.swing.JTable tblCupomFiscal;
     private javax.swing.JTable tblVendas;
     // End of variables declaration//GEN-END:variables
 }
