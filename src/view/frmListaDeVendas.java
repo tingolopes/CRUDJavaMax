@@ -42,6 +42,9 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
         add(jDetalhamentoCupom);
         jDetalhamentoCupom.setLayout(new FlowLayout());
         
+        
+        //teste
+                
         jDetalhamentoCupom.setLayout(new BorderLayout());
         jDetalhamentoCupom.add(jPanelTabela, BorderLayout.NORTH);
         jDetalhamentoCupom.add(jTotal);
