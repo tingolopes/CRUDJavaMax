@@ -254,7 +254,7 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
-        setTitle("PDV SisVenda");
+        setTitle("PDV SIS-VENDAS");
         setMinimumSize(new java.awt.Dimension(950, 430));
         setPreferredSize(new java.awt.Dimension(950, 430));
         setVisible(true);
@@ -286,7 +286,7 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel3.setText("Produto");
+        jLabel3.setText("Pesquisa Produto");
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -552,6 +552,8 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
                     .addComponent(jPanelVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        getAccessibleContext().setAccessibleName("PDV SIS-VENDAS");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -132,7 +132,7 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
-        setTitle("Venda");
+        setTitle("Vendas");
         setMinimumSize(new java.awt.Dimension(791, 422));
 
         jPanelListaDeCupons.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de cupons", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
@@ -257,7 +257,7 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jDetalhamentoCupom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addGap(23, 23, 23))
         );
         jPanelListaDeCuponsLayout.setVerticalGroup(
             jPanelListaDeCuponsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
