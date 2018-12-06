@@ -9,7 +9,8 @@ import java.util.Date;
 
 /**
  *
- * @author Bravo
+ * @author Michell
+ * @author Kleber
  */
 public class Venda {
     private Integer idvenda;

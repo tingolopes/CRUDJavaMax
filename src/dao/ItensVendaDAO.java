@@ -20,7 +20,8 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Bravo
+ * @author Michell
+ * @author Kleber
  */
 public class ItensVendaDAO {
 

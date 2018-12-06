@@ -23,7 +23,8 @@ import tablemodel.CupomFiscalTableModel;
 
 /**
  *
- * @author tingo
+ * @author Michell
+ * @author Kleber
  */
 public class frmEfetuarVenda extends javax.swing.JInternalFrame {
 

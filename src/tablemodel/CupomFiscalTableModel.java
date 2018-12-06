@@ -13,7 +13,8 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author Bravo
+ * @author Michell
+ * @author Kleber
  */
 public class CupomFiscalTableModel extends AbstractTableModel {
 

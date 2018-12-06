@@ -7,7 +7,8 @@ package bean;
 
 /**
  *
- * @author tingo
+ * @author Michell
+ * @author Kleber
  */
 public class Admin {
     private Integer idadmin;

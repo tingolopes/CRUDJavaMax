@@ -7,7 +7,8 @@ package bean;
 
 /**
  *
- * @author Bravo
+ * @author Michell
+ * @author Kleber
  */
 public class Cliente {
     private Integer idcliente;

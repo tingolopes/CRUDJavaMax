@@ -12,7 +12,8 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author Bravo
+ * @author Michell
+ * @author Kleber
  */
 public class VendaTableModel extends AbstractTableModel{
     final List<String> cabecalho;

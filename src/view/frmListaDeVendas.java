@@ -22,7 +22,8 @@ import tablemodel.VendaTableModel;
 
 /**
  *
- * @author tingo
+ * @author Michell
+ * @author Kleber
  */
 public class frmListaDeVendas extends javax.swing.JInternalFrame {
 

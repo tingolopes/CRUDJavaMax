@@ -19,7 +19,8 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Bravo
+ * @author Michell
+ * @author Kleber
  */
 public class ClienteDAO {
     public void create(Cliente a) {
