@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import tablemodel.CupomFiscalTableModel;
 
@@ -39,17 +41,17 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         tblCupomFiscal.setVisible(false);
         dataHoje();
         listarItensDaVenda(0);
-        
+
         setLayout(new BorderLayout());
         add(jPanelVenda, BorderLayout.WEST);
         add(jDetalhamentoCupom);
         jDetalhamentoCupom.setLayout(new FlowLayout());
-        
+
         jDetalhamentoCupom.setLayout(new BorderLayout());
         jDetalhamentoCupom.add(jPanelTabela, BorderLayout.NORTH);
         jDetalhamentoCupom.add(jTotal);
         jTotal.setLayout(new FlowLayout());
-        
+
     }
 
     public final void dataHoje() {
@@ -94,20 +96,35 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
     }
 
     public void novaVenda() {
-        Venda v = new Venda();
-        VendaDAO daov = new VendaDAO();
-        ClienteDAO daoc = new ClienteDAO();
-        v.setCliente(daoc.read(Integer.parseInt(txtIdCliente.getText())));
-        v.setDatavenda(txtDataVenda.getDate());
-        v.setIdcliente(v.getCliente().getIdcliente());
-        int ultimaVenda = daov.create(v);
-        txtNumeroVenda.setText(String.valueOf(ultimaVenda));
+//        Venda v = new Venda();
+//        VendaDAO daov = new VendaDAO();
+//        ClienteDAO daoc = new ClienteDAO();
+//        v.setCliente(daoc.read(Integer.parseInt(txtIdCliente.getText())));
+//        v.setDatavenda(txtDataVenda.getDate());
+//        v.setIdcliente(v.getCliente().getIdcliente());
+//        int ultimaVenda = daov.create(v);
+//        txtNumeroVenda.setText(String.valueOf(ultimaVenda));
         txtPesquisaCliente.setEnabled(false);
         jButtonNovaVenda.setEnabled(false);
         jButtonLimpaPesquisaCliente.setEnabled(false);
     }
 
     public void inserirProduto() {
+
+        if (txtNumeroVenda.getText().isEmpty()) {
+            Venda v = new Venda();
+            VendaDAO daov = new VendaDAO();
+            ClienteDAO daoc = new ClienteDAO();
+            v.setCliente(daoc.read(Integer.parseInt(txtIdCliente.getText())));
+            v.setDatavenda(txtDataVenda.getDate());
+            v.setIdcliente(v.getCliente().getIdcliente());
+            int ultimaVenda = daov.create(v);
+            txtNumeroVenda.setText(String.valueOf(ultimaVenda));
+//            txtPesquisaCliente.setEnabled(false);
+//            jButtonNovaVenda.setEnabled(false);
+//            jButtonLimpaPesquisaCliente.setEnabled(false);
+        }
+
         ItensVenda iv = new ItensVenda();
         ItensVendaDAO dao = new ItensVendaDAO();
         ProdutoDAO daop = new ProdutoDAO();
@@ -126,7 +143,7 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         tblCupomFiscal.setModel(modelo);
         tblCupomFiscal.setVisible(true);
         ajustaTabela();
-        
+
         //seta total do cupom
         DecimalFormat df = new DecimalFormat();
         df.applyPattern("R$ #,##0.00");
@@ -134,7 +151,7 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         soma = dao.readSomaCupom(pesquisaPorId);
         jLabelTotalCupom.setText(String.valueOf(df.format(soma)));
     }
-    
+
     public void ajustaTabela() {
         //seta tamanho das colunas
         tblCupomFiscal.getColumnModel().getColumn(0).setPreferredWidth(220);
@@ -201,6 +218,10 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         txtQtdProd.setText("");
         txtPesquisaProduto.requestFocus();
         jListaProdutos.setVisible(false);
+    }
+
+    public void internalFrameClosed(InternalFrameEvent event) {
+        System.out.println("O JInternalFrame foi fechado!");
     }
 
     @SuppressWarnings("unchecked")
@@ -592,9 +613,7 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jListaProdutosMouseClicked
 
     private void jButtonInserirItemVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirItemVendaActionPerformed
-        if (txtNumeroVenda.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Clique em Nova Venda primeiro", "ERRO", JOptionPane.ERROR_MESSAGE);
-        } else if (txtPrecoProduto.getText().isEmpty()) {
+        if (txtPrecoProduto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "O produto não pode ficar vazio", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else if (txtQtdProd.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Preencha a quantidade", "ERRO", JOptionPane.ERROR_MESSAGE);
